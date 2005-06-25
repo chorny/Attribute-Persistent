@@ -1,6 +1,6 @@
 package Attribute::Persistent;
 use strict;
-our $VERSION = "1.0";
+our $VERSION = "1.1";
 
 my $key;
 
@@ -92,7 +92,9 @@ works. That's all most people need to care about.
 
 =head1 AUTHOR
 
-Simon Cozens, C<simon@cpan.org>
+Originally by Simon Cozens, C<simon@cpan.org>
+
+Maintained by Scott Penrose, C<scott@cpan.org>
 
 =head1 LICENSE
 
