@@ -1,0 +1,11 @@
+Build.bat
+Build
+Makefile.PL
+_build
+Attribute-Persistent-*
+blib
+*.tmp
+Makefile
+pm_to_blib
+META.yml
+MYMETA.yml
