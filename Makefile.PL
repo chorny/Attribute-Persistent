@@ -11,8 +11,9 @@ WriteMakefile1(
         "Attribute::Handlers::Prospective" => 0,
         "Digest::MD5" => 0,
     },
-    #BUILD_REQUIRES => {
-    #},
+    BUILD_REQUIRES => {
+        'Test::More' => 0,
+    },
     LICENSE => 'perl',
     MIN_PERL_VERSION => '5.006',
     META_MERGE => {
