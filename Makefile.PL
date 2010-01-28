@@ -10,7 +10,7 @@ WriteMakefile1(
         MLDBM => 0,
         "Attribute::Handlers::Prospective" => 0,
         "Digest::MD5" => 0,
-    }
+    },
     #BUILD_REQUIRES => {
     #},
     LICENSE => 'perl',
