@@ -21,7 +21,7 @@ if (-e $0 and open IN, $0) {
 package UNIVERSAL;
 use Attribute::Handlers::Prospective;
 use File::Spec::Functions (':ALL');
-BEGIN { @AnyDBM_File::ISA = qw(DB_File GDBM_File NDBM_File SDBM_File) }
+BEGIN { @AnyDBM_File::ISA = qw(GDBM_File NDBM_File SDBM_File) }
 use AnyDBM_File;
 use MLDBM qw(AnyDBM_File);
 
