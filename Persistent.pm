@@ -27,7 +27,8 @@ use MLDBM qw(AnyDBM_File);
 
 no strict; # Attributes do evil things
 sub persistent :ATTR(RAWDATA) {
-    my $name = *{$_[1]}{NAME};
+    #($package, $symbol, $referent, $attr, $data, $phase)
+    my $name = *{$_[1]}{NAME}; #symbol name
     $name =~ /LEXICAL\((.*)\)/ or do {
         require Carp;
         croak("Can only define :persistent on lexicals");
@@ -40,11 +41,12 @@ sub persistent :ATTR(RAWDATA) {
     $name =~ s/^\%/H-/ and $type = '%';
     $name =~ s/^\@/A-/ and $type = '@';
     # But ...
-    if ($_[4] ne "undef") { $name = $_[4]; }
+    if ($_[4] ne "undef") { $name = $_[4]; } #attribute data
     $name =~ s/\W+/-/g;
-    my $filename = catdir(tmpdir(),"$key-$_[0]-$name");
+    my $package=$_[0]; #package where it was declared
+    my $filename = catdir(tmpdir(),"$key-$package-$name");
     tie (($type eq "%" ? %{$_[2]} : @{$_[2]}), "MLDBM", $filename)
-    or do {require Carp; croak("Couldn't tie $origname to $filename - $!")};
+     or do {require Carp; croak("Couldn't tie $origname to $filename - $!")};
 }
 
 1;
