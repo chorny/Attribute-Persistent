@@ -10,6 +10,7 @@ WriteMakefile1(
         MLDBM => 0,
         "Attribute::Handlers::Prospective" => 0,
         "Digest::MD5" => 0,
+        'File::Spec::Functions' => 0,
     },
     BUILD_REQUIRES => {
         'Test::More' => 0,
