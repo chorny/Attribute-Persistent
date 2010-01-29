@@ -5,6 +5,10 @@ our $VERSION = "1.1";
 
 my $key;
 
+BEGIN {
+    eval {require DB_File;};
+}
+
 require Digest::MD5;
 local *IN;
 if (-e $0 and open IN, $0) {
@@ -21,7 +25,7 @@ if (-e $0 and open IN, $0) {
 package UNIVERSAL;
 use Attribute::Handlers::Prospective;
 use File::Spec::Functions (':ALL');
-BEGIN { @AnyDBM_File::ISA = qw(GDBM_File NDBM_File SDBM_File) }
+BEGIN { @AnyDBM_File::ISA = qw(DB_File GDBM_File NDBM_File SDBM_File) }
 use AnyDBM_File;
 use MLDBM qw(AnyDBM_File);
 use Fcntl;
@@ -46,8 +50,10 @@ sub persistent :ATTR(RAWDATA) {
     $name =~ s/\W+/-/g;
     my $package=$_[0]; #package where it was declared
     my $filename = catdir(tmpdir(),"$key-$package-$name");
+    eval {
     tie (($type eq "%" ? %{$_[2]} : @{$_[2]}), "MLDBM", $filename,O_RDWR|O_CREAT,0640)
      or do {require Carp; croak("Couldn't tie $origname to $filename - $!")};
+    };
 }
 
 1;
