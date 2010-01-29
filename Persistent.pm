@@ -24,6 +24,7 @@ use File::Spec::Functions (':ALL');
 BEGIN { @AnyDBM_File::ISA = qw(GDBM_File NDBM_File SDBM_File) }
 use AnyDBM_File;
 use MLDBM qw(AnyDBM_File);
+use Fcntl;
 
 no strict; # Attributes do evil things
 sub persistent :ATTR(RAWDATA) {
@@ -45,7 +46,7 @@ sub persistent :ATTR(RAWDATA) {
     $name =~ s/\W+/-/g;
     my $package=$_[0]; #package where it was declared
     my $filename = catdir(tmpdir(),"$key-$package-$name");
-    tie (($type eq "%" ? %{$_[2]} : @{$_[2]}), "MLDBM", $filename)
+    tie (($type eq "%" ? %{$_[2]} : @{$_[2]}), "MLDBM", $filename,O_RDWR|O_CREAT,0640)
      or do {require Carp; croak("Couldn't tie $origname to $filename - $!")};
 }
 
