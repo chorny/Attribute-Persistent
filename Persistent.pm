@@ -51,9 +51,10 @@ sub persistent :ATTR(RAWDATA) {
     my $package=$_[0]; #package where it was declared
     my $filename = catdir(tmpdir(),"$key-$package-$name");
     eval {
-    tie (($type eq "%" ? %{$_[2]} : @{$_[2]}), "MLDBM", $filename,O_RDWR|O_CREAT,0640)
-     or do {require Carp; croak("Couldn't tie $origname to $filename - $!")};
+        tie (($type eq "%" ? %{$_[2]} : @{$_[2]}), "MLDBM", $filename,O_RDWR|O_CREAT,0640)
+         or do {require Carp; croak("Couldn't tie $origname to $filename - $!")};
     };
+    print "Error in Attribute::Persistent: $@\n";
 }
 
 1;
